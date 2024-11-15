@@ -99,19 +99,17 @@
     <div class="login-container">
         <h2>Login to MovieRecs</h2>
 
-        <!-- Flash Message Block with Filtering for Authentication Messages -->
+        <!-- Flash Messages Block -->
         {% with messages = get_flashed_messages(with_categories=True) %}
             {% if messages %}
                 <div class="mb-4">
                     {% for category, message in messages %}
-                        {% if category.startswith("auth-") %}
-                            <div class="alert alert-{{ category.split('-')[1] }} alert-dismissible fade show" role="alert">
-                                {{ message }}
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        {% endif %}
+                        <div class="alert alert-{{ category.split('-')[1] }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
                     {% endfor %}
                 </div>
             {% endif %}
@@ -148,6 +146,5 @@
         });
     </script>
 
-    
 </body>
 </html>

@@ -1207,3 +1207,152 @@
 2024-11-15 19:31:39,155 - INFO - 127.0.0.1 - - [15/Nov/2024 19:31:39] "GET / HTTP/1.1" 200 -
 2024-11-15 19:31:39,184 - INFO - 127.0.0.1 - - [15/Nov/2024 19:31:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
 2024-11-15 19:31:40,289 - INFO - 127.0.0.1 - - [15/Nov/2024 19:31:40] "GET /auth/login HTTP/1.1" 200 -
+2024-11-15 21:56:19,803 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 21:56:19,803 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 21:56:19,804 - INFO -  * Restarting with stat
+2024-11-15 21:56:20,071 - WARNING -  * Debugger is active!
+2024-11-15 21:56:20,079 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 21:56:24,310 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:24] "GET / HTTP/1.1" 200 -
+2024-11-15 21:56:24,328 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:24] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 21:56:31,769 - INFO - Cache used for key: movie_genres
+2024-11-15 21:56:43,592 - INFO - Cached search results for jok with filters None
+2024-11-15 21:56:43,593 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:43] "GET /autocomplete?q=jok HTTP/1.1" 200 -
+2024-11-15 21:56:43,993 - INFO - Cached search results for joker with filters None
+2024-11-15 21:56:43,993 - INFO - Cached search results for joker with filters {'release_year': '', 'rating': '', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 21:56:43,993 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:43] "GET /autocomplete?q=joker HTTP/1.1" 200 -
+2024-11-15 21:56:44,372 - INFO - Cache used for key: trending_movies
+2024-11-15 21:56:44,373 - INFO - Cache used for key: top_rated_movies
+2024-11-15 21:56:44,373 - INFO - Cache used for key: new_released_movies
+2024-11-15 21:56:44,375 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:44] "POST /recommend HTTP/1.1" 200 -
+2024-11-15 21:56:44,399 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:44] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 21:56:45,503 - INFO - Cached search results for jo with filters None
+2024-11-15 21:56:45,505 - INFO - 127.0.0.1 - - [15/Nov/2024 21:56:45] "GET /autocomplete?q=jo HTTP/1.1" 200 -
+2024-11-15 22:19:10,160 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 22:19:10,160 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 22:19:10,161 - INFO -  * Restarting with stat
+2024-11-15 22:19:10,415 - WARNING -  * Debugger is active!
+2024-11-15 22:19:10,422 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 22:44:22,862 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 22:44:22,862 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 22:44:22,863 - INFO -  * Restarting with stat
+2024-11-15 22:44:23,126 - WARNING -  * Debugger is active!
+2024-11-15 22:44:23,138 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 22:44:29,323 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:29] "GET / HTTP/1.1" 200 -
+2024-11-15 22:44:29,344 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:29] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:44:43,502 - INFO - Cached search results for jok with filters None
+2024-11-15 22:44:43,504 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:43] "GET /autocomplete?q=jok HTTP/1.1" 200 -
+2024-11-15 22:44:44,162 - INFO - Cached search results for joker with filters None
+2024-11-15 22:44:44,162 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:44] "GET /autocomplete?q=joker HTTP/1.1" 200 -
+2024-11-15 22:44:46,596 - INFO - Cached search results for joker with filters None
+2024-11-15 22:44:46,597 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:46] "GET /autocomplete?q=joker%20 HTTP/1.1" 200 -
+2024-11-15 22:44:48,677 - INFO - Cache used for key: movie_genres
+2024-11-15 22:44:49,796 - INFO - Cached search results for joker with filters {'release_year': '', 'rating': '', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 22:44:50,182 - INFO - Cache used for key: trending_movies
+2024-11-15 22:44:50,182 - INFO - Cache used for key: top_rated_movies
+2024-11-15 22:44:50,182 - INFO - Cache used for key: new_released_movies
+2024-11-15 22:44:50,183 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:50] "POST /recommend HTTP/1.1" 200 -
+2024-11-15 22:44:50,197 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:44:53,835 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:53] "GET /movie/475557 HTTP/1.1" 200 -
+2024-11-15 22:44:53,847 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:44:57,114 - INFO - 127.0.0.1 - - [15/Nov/2024 22:44:57] "GET /auth/login HTTP/1.1" 200 -
+2024-11-15 22:45:04,091 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:04] "[32mPOST /auth/login HTTP/1.1[0m" 302 -
+2024-11-15 22:45:06,312 - INFO - Cache used for key: movie_genres
+2024-11-15 22:45:07,026 - INFO - Cache used for key: trending_movies
+2024-11-15 22:45:07,026 - INFO - Cache used for key: top_rated_movies
+2024-11-15 22:45:07,027 - INFO - Cache used for key: new_released_movies
+2024-11-15 22:45:07,028 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:07] "GET / HTTP/1.1" 200 -
+2024-11-15 22:45:07,051 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:07] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:11,750 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:11] "GET /movie/558449 HTTP/1.1" 200 -
+2024-11-15 22:45:11,777 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:11] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:13,146 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:13] "[32mPOST /watchlist/add/558449 HTTP/1.1[0m" 302 -
+2024-11-15 22:45:18,897 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:18] "GET /watchlist HTTP/1.1" 200 -
+2024-11-15 22:45:18,911 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:18] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:34,416 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:34] "GET /watchlist HTTP/1.1" 200 -
+2024-11-15 22:45:34,472 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:34] "GET /favorites HTTP/1.1" 200 -
+2024-11-15 22:45:34,484 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:34] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:39,553 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:39] "GET /watchlist HTTP/1.1" 200 -
+2024-11-15 22:45:39,566 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:39] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:45,057 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:45] "GET /personalized HTTP/1.1" 200 -
+2024-11-15 22:45:45,085 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:45] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:50,037 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:50] "GET /watchlist HTTP/1.1" 200 -
+2024-11-15 22:45:50,067 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:50] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:45:51,627 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:51] "[32mPOST /watchlist/remove/558449 HTTP/1.1[0m" 302 -
+2024-11-15 22:45:53,207 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:53] "GET /watchlist HTTP/1.1" 200 -
+2024-11-15 22:45:53,221 - INFO - 127.0.0.1 - - [15/Nov/2024 22:45:53] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -
+2024-11-15 22:57:36,124 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 22:57:36,125 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 22:57:36,125 - INFO -  * Restarting with stat
+2024-11-15 22:57:36,388 - WARNING -  * Debugger is active!
+2024-11-15 22:57:36,395 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 22:57:46,688 - INFO -  * Detected change in '/Users/safalkarki/Downloads/3002(1.1)/3002/3002/filtertest.py', reloading
+2024-11-15 22:57:46,746 - INFO -  * Restarting with stat
+2024-11-15 22:57:47,009 - WARNING -  * Debugger is active!
+2024-11-15 22:57:47,014 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 23:04:29,383 - INFO - Cached search results for Any with filters {'release_year': '1994', 'rating': '8.5', 'genre': 'Drama', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:04:41,624 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 23:04:52,856 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': 'Sci-Fi', 'language': '', 'sort_by': ''}
+2024-11-15 23:05:06,371 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:05:19,138 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '9.0', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 23:05:33,300 - INFO - Cached search results for Any with filters {'release_year': '1994', 'rating': '', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 23:05:46,660 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': 'Horror', 'language': '', 'sort_by': ''}
+2024-11-15 23:05:59,915 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': 'invalid_rating', 'genre': '', 'language': '', 'sort_by': ''}
+2024-11-15 23:06:12,483 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': '', 'language': '', 'sort_by': 'rating_desc'}
+2024-11-15 23:06:24,690 - INFO - Cached search results for Any with filters {'release_year': '', 'rating': '', 'genre': '', 'language': '', 'sort_by': 'title_asc'}
+2024-11-15 23:09:23,712 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:09:32,682 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:09:35,892 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:09:40,010 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Comedy', 'language': '', 'sort_by': ''}
+2024-11-15 23:11:40,252 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:11:44,014 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:11:47,796 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:11:50,938 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Comedy', 'language': '', 'sort_by': ''}
+2024-11-15 23:12:04,349 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:12:07,677 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:12:11,457 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:12:15,082 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Drama', 'language': '', 'sort_by': ''}
+2024-11-15 23:12:18,367 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:12:21,697 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:12:36,789 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:12:40,140 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:12:43,317 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:12:46,517 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Drama', 'language': '', 'sort_by': ''}
+2024-11-15 23:12:49,897 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:12:53,897 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:15:00,708 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:15:05,280 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:15:08,697 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:15:12,389 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Drama', 'language': '', 'sort_by': ''}
+2024-11-15 23:15:15,791 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:15:21,223 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:19:58,744 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 23:19:58,744 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 23:19:58,745 - INFO -  * Restarting with stat
+2024-11-15 23:19:59,005 - WARNING -  * Debugger is active!
+2024-11-15 23:19:59,013 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 23:21:06,696 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 23:21:06,696 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 23:21:06,697 - INFO -  * Restarting with stat
+2024-11-15 23:21:06,956 - WARNING -  * Debugger is active!
+2024-11-15 23:21:06,962 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 23:21:15,177 - INFO -  * Detected change in '/Users/safalkarki/Downloads/3002(1.1)/3002/3002/test_login.py', reloading
+2024-11-15 23:21:15,241 - INFO -  * Restarting with stat
+2024-11-15 23:21:15,536 - WARNING -  * Debugger is active!
+2024-11-15 23:21:15,544 - INFO -  * Debugger PIN: 135-467-053
+2024-11-15 23:21:40,073 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:21:43,385 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:21:46,679 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Action', 'language': '', 'sort_by': ''}
+2024-11-15 23:21:49,859 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': 'Drama', 'language': '', 'sort_by': ''}
+2024-11-15 23:21:53,109 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'English', 'sort_by': ''}
+2024-11-15 23:21:56,323 - INFO - Cached search results for  with filters {'release_year': '', 'rating': '', 'genre': '', 'language': 'French', 'sort_by': ''}
+2024-11-15 23:29:05,944 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5004
+2024-11-15 23:29:05,944 - INFO - [33mPress CTRL+C to quit[0m
+2024-11-15 23:29:05,945 - INFO -  * Restarting with stat
+2024-11-15 23:29:06,216 - WARNING -  * Debugger is active!
+2024-11-15 23:29:06,223 - INFO -  * Debugger PIN: 135-467-053

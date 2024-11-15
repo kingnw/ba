@@ -1,5 +1,3 @@
-# app.py
-
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -18,17 +16,12 @@ from utils import cache  # Ensure 'cache' is correctly imported from utils
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Use environment variable for security
 
-
-
-
-
 # Debug: Print the exact search paths
 with app.app_context():
     if isinstance(app.jinja_loader, jinja2.FileSystemLoader):
         print("Template search paths:", app.jinja_loader.searchpath)
     else:
         print("No FileSystemLoader or custom loader in use!")
-
 
 # Configure SQLAlchemy database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -46,7 +39,7 @@ login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
 # TMDB API Key and base URL
-API_KEY = os.environ.get('TMDB_API_KEY', '9ba93d1cf5e3054788a377f636ea1033')  # Ensure this is secure
+API_KEY = os.environ.get('TMDB_API_KEY', 'your_api_key')  # Ensure this is secure
 TMDB_BASE_URL = 'https://api.themoviedb.org/3'
 
 # Load user callback for Flask-Login
@@ -415,11 +408,10 @@ def index():
         most_watched_movies=most_watched_movies,
         new_released_movies=new_released_movies
     )
+
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
-
-
 
 # --------------------- Initialize Database ---------------------
 
