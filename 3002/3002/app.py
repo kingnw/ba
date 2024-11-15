@@ -9,12 +9,26 @@ from recommendation import get_recommended_movies, get_movie_recommendations, ge
 from utils import get_movie_details, calculate_avg_rating, get_similar_movie_ratings
 from tmdb_helpers import get_top_rated_movies, get_new_released_movies, get_trending_movies, get_genres, search_movie
 import os
+import jinja2
+
 from datetime import datetime
 import requests
 from utils import cache  # Ensure 'cache' is correctly imported from utils
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Use environment variable for security
+
+
+
+
+
+# Debug: Print the exact search paths
+with app.app_context():
+    if isinstance(app.jinja_loader, jinja2.FileSystemLoader):
+        print("Template search paths:", app.jinja_loader.searchpath)
+    else:
+        print("No FileSystemLoader or custom loader in use!")
+
 
 # Configure SQLAlchemy database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -401,6 +415,11 @@ def index():
         most_watched_movies=most_watched_movies,
         new_released_movies=new_released_movies
     )
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
 
 # --------------------- Initialize Database ---------------------
 
