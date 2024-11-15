@@ -5,17 +5,16 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from auth import auth_blueprint
 from models import db, User, UserMovies, Review
-from recommendation import get_recommended_movies, get_movie_recommendations
+from recommendation import get_recommended_movies, get_movie_recommendations, get_personalized_recommendations, get_similar_movies_for_details
 from utils import get_movie_details, calculate_avg_rating, get_similar_movie_ratings
 from tmdb_helpers import get_top_rated_movies, get_new_released_movies, get_trending_movies, get_genres, search_movie
 import os
 from datetime import datetime
-from recommendation import get_personalized_recommendations,get_similar_movies_for_details
-from utils import cache 
-
+import requests
+from utils import cache  # Ensure 'cache' is correctly imported from utils
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')
+app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Use environment variable for security
 
 # Configure SQLAlchemy database URI
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
@@ -32,6 +31,10 @@ login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
 
+# TMDB API Key and base URL
+API_KEY = os.environ.get('TMDB_API_KEY', '9ba93d1cf5e3054788a377f636ea1033')  # Ensure this is secure
+TMDB_BASE_URL = 'https://api.themoviedb.org/3'
+
 # Load user callback for Flask-Login
 @login_manager.user_loader
 def load_user(user_id):
@@ -39,6 +42,34 @@ def load_user(user_id):
 
 # Register the auth blueprint
 app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+# --------------------- Helper Functions ---------------------
+
+def get_languages():
+    """Fetches supported languages from the TMDB API and sorts them alphabetically by name."""
+    url = f'{TMDB_BASE_URL}/configuration/languages'
+    params = {
+        'api_key': API_KEY,
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        languages = response.json()
+        # Filter out languages without a proper iso_639_1 code and sort alphabetically by 'english_name'
+        languages = sorted(
+            [
+                {"code": lang['iso_639_1'], "name": lang['english_name']}
+                for lang in languages
+                if lang.get('iso_639_1') and lang.get('english_name')
+            ],
+            key=lambda x: x["name"]
+        )
+        return languages
+    return []
+
+def get_years():
+    """Generates a list of years from 1900 to the current year."""
+    current_year = datetime.now().year
+    return list(range(current_year, 1899, -1))  # From current year down to 1900
 
 # --------------------- Autocomplete Route ---------------------
 
@@ -48,10 +79,15 @@ def autocomplete():
     if not query:
         return jsonify([])
 
-    suggestions = [{'label': movie['title'], 'value': movie['title'], 'id': movie['id']} for movie in search_movie(query)[:10]]
+    # Fetch search results using the existing search_movie function
+    search_results = search_movie(query)
+    
+    # Create suggestions for autocomplete
+    suggestions = [{'label': movie['title'], 'value': movie['title'], 'id': movie['id']} for movie in search_results[:10]]
     return jsonify(suggestions)
 
-# --------------------- Movie Details Route ---------------------
+# --------------------- Movie Details Routes ---------------------
+
 # Route to submit a rating for a movie
 @app.route('/rate_movie', methods=['POST'])
 @login_required
@@ -127,7 +163,6 @@ def movie_details(movie_id):
 
     return render_template('movie_details.html', movie=movie, reviews=reviews, avg_rating=avg_rating, recommendations=recommendations)
 
-
 # Route to submit a rating for a similar movie (does not affect main feedback)
 @app.route('/rate_similar_movie', methods=['POST'])
 @login_required
@@ -145,13 +180,14 @@ def rate_similar_movie():
 
         # Here you can choose not to store the similar movie rating in the main feedback system
         # If you want to track similar movie ratings separately, you could add logic here for tracking
-        
+
         return jsonify({"message": "Rating for similar movie submitted successfully!"}), 200
     except ValueError:
         return jsonify({"message": "Invalid rating value"}), 400
 
-
 # --------------------- Watchlist and Favorites Routes ---------------------
+
+# Route to add a movie to Watchlist or Favorites
 @app.route('/<category>/add/<int:movie_id>', methods=['POST'])
 @login_required
 def add_movie(category, movie_id):
@@ -174,6 +210,7 @@ def add_movie(category, movie_id):
 
     return redirect(url_for(f'view_{category}'))
 
+# Route to remove a movie from Watchlist or Favorites
 @app.route('/<category>/remove/<int:movie_id>', methods=['POST'])
 @login_required
 def remove_movie(category, movie_id):
@@ -195,6 +232,7 @@ def remove_movie(category, movie_id):
     
     return redirect(url_for(f'view_{category}'))
 
+# Route to view Watchlist
 @app.route('/watchlist')
 @login_required
 def view_watchlist():
@@ -204,6 +242,7 @@ def view_watchlist():
         flash("Your watchlist is empty.", "info")
     return render_template('watchlist.html', movies=movies, category="Watchlist")
 
+# Route to view Favorites
 @app.route('/favorites')
 @login_required
 def view_favorites():
@@ -214,6 +253,7 @@ def view_favorites():
     return render_template('favorites.html', movies=movies, category="Favorites")
 
 # --------------------- Filter Watchlist and Favorites Routes ---------------------
+
 @app.route('/filters.html')
 def filters():
     return render_template('filters.html')
@@ -253,6 +293,7 @@ def get_filtered_watchlist(user_id, sortby, category='watchlist'):
             movies.sort(key=lambda x: x.get('title', '').lower(), reverse=True)
     
     return movies
+
 # --------------------- Top-Rated, New Released, Trending Routes ---------------------
 
 # Route to display top-rated movies
@@ -260,21 +301,27 @@ def get_filtered_watchlist(user_id, sortby, category='watchlist'):
 def top_rated():
     top_rated_movies = get_top_rated_movies()
     genres = get_genres()
-    return render_template('top_rated.html', top_rated_movies=top_rated_movies, genres=genres)
+    languages = get_languages()  # Fetch languages
+    years = get_years()  # Fetch years list
+    return render_template('top_rated.html', top_rated_movies=top_rated_movies, genres=genres, languages=languages, years=years)
 
 # Route to display newly released movies
 @app.route('/new-released')
 def new_released():
     new_released_movies = get_new_released_movies()
     genres = get_genres()
-    return render_template('new_released.html', new_released_movies=new_released_movies, genres=genres)
+    languages = get_languages()  # Fetch languages
+    years = get_years()  # Fetch years list
+    return render_template('new_released.html', new_released_movies=new_released_movies, genres=genres, languages=languages, years=years)
 
 # Route to display trending movies
 @app.route('/trending')
 def trending():
     trending_movies = get_trending_movies()
     genres = get_genres()
-    return render_template('trending.html', trending_movies=trending_movies, genres=genres)
+    languages = get_languages()  # Fetch languages
+    years = get_years()  # Fetch years list
+    return render_template('trending.html', trending_movies=trending_movies, genres=genres, languages=languages, years=years)
 
 # --------------------- Recommendation Routes ---------------------
 
@@ -283,7 +330,6 @@ def trending():
 def personalized_recommendations():
     recommendations = get_personalized_recommendations(current_user)
     return render_template('personalized.html', recommendations=recommendations, show_flash_messages=False)
-
 
 @app.route('/recommend', methods=['POST'])
 def recommend():
@@ -303,8 +349,13 @@ def recommend():
     }
 
     genres_list = get_genres()
+    languages = get_languages()  # Fetch languages
+    years = get_years()  # Fetch years list
+
+    # Perform search with filters
     search_results = search_movie(movie_title, filters=filters)
 
+    # Fetch general recommendations regardless of search
     if current_user.is_authenticated:
         recommendations = get_recommended_movies(current_user)
     else:
@@ -321,6 +372,8 @@ def recommend():
         search_query=movie_title,
         filters=filters,
         genres=genres_list,
+        languages=languages,
+        years=years,
         trending_movies=trending_movies,
         most_watched_movies=most_watched_movies,
         new_released_movies=new_released_movies
@@ -328,8 +381,13 @@ def recommend():
 
 @app.route('/')
 def index():
-    recommendations = get_recommended_movies(current_user)
+    if current_user.is_authenticated:
+        recommendations = get_recommended_movies(current_user)
+    else:
+        recommendations = get_recommended_movies()
     genres = get_genres()
+    languages = get_languages()  # Fetch languages
+    years = get_years()  # Fetch years list
     trending_movies = get_trending_movies()
     most_watched_movies = get_top_rated_movies()
     new_released_movies = get_new_released_movies()
@@ -337,10 +395,14 @@ def index():
         'index.html',
         recommendations=recommendations,
         genres=genres,
+        languages=languages,
+        years=years,
         trending_movies=trending_movies,
         most_watched_movies=most_watched_movies,
         new_released_movies=new_released_movies
     )
+
+# --------------------- Initialize Database ---------------------
 
 # Initialize database tables if they do not exist
 with app.app_context():
@@ -349,4 +411,3 @@ with app.app_context():
 # Start the Flask app
 if __name__ == '__main__':
     app.run(debug=True, port=5004)
-

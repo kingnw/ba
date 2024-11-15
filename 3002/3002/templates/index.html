@@ -76,42 +76,42 @@
         </div>
     </nav>
 
-                    <!-- Trending Movies Carousel -->
-{% if not search_results %}
-<div class="container-fluid p-0 trending-carousel mt-5 pt-4">
-    <h2 class="section-title">Trending Movies</h2>
-    <div id="trendingCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
-        <!-- Carousel Inner -->
-        <div class="carousel-inner">
-            {% for movie in trending_movies %}
-            <div class="carousel-item {% if loop.first %}active{% endif %}">
-                <a href="/movie/{{ movie['id'] }}">
-                    <img src="{{ movie['backdrop'] }}" alt="{{ movie['title'] }}" class="d-block w-100 carousel-image" loading="lazy">
-                </a>
-                <!-- Optional overlay with movie title and rating -->
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>{{ movie['title'] }}</h5>
-                    <p>Rating: {{ movie['rating'] }}</p>
+    <!-- Trending Movies Carousel -->
+    {% if not search_results %}
+    <div class="container-fluid p-0 trending-carousel mt-5 pt-4">
+        <h2 class="section-title">Trending Movies</h2>
+        <div id="trendingCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+            <!-- Carousel Inner -->
+            <div class="carousel-inner">
+                {% for movie in trending_movies %}
+                <div class="carousel-item {% if loop.first %}active{% endif %}">
+                    <a href="/movie/{{ movie['id'] }}">
+                        <img src="{{ movie['backdrop'] }}" alt="{{ movie['title'] }}" class="d-block w-100 carousel-image" loading="lazy">
+                    </a>
+                    <!-- Optional overlay with movie title and rating -->
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ movie['title'] }}</h5>
+                        <p>Rating: {{ movie['rating'] }}</p>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
+            <!-- Carousel Controls -->
+            <a class="carousel-control-prev" href="#trendingCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#trendingCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <!-- Carousel Controls -->
-        <a class="carousel-control-prev" href="#trendingCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#trendingCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <!-- "See More" Button at Bottom-Right of Trending Movies -->
+        <div class="text-right pr-4 mb-4">
+            <a href="/trending" class="btn btn-outline-primary see-more-btn" aria-label="See more trending movies">See More</a>
+        </div>
     </div>
-    <!-- "See More" Button at Bottom-Right of Trending Movies -->
-    <div class="text-right pr-4 mb-4">
-        <a href="/trending" class="btn btn-outline-primary see-more-btn" aria-label="See more trending movies">See More</a>
-    </div>
-</div>
-{% endif %}
+    {% endif %}
 
 
     <!-- Main Content -->
@@ -125,14 +125,24 @@
         <form action="{{ url_for('recommend') }}" method="POST" class="mb-4">
             <input type="hidden" name="movie_title" value="{{ search_query }}">
             <div class="form-row">
+                <!-- Release Year Dropdown -->
                 <div class="form-group col-md-2">
                     <label for="release_year">Release Year</label>
-                    <input type="number" class="form-control" name="release_year" placeholder="e.g., 2023" value="{{ filters.release_year }}">
+                    <select class="form-control" name="release_year" id="release_year">
+                        <option value="">Any</option>
+                        {% for year in years %}
+                        <option value="{{ year }}" {% if filters.release_year == year|string %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+
+                <!-- Minimum Rating Input -->
                 <div class="form-group col-md-2">
                     <label for="rating">Minimum Rating</label>
                     <input type="number" class="form-control" name="rating" min="0" max="10" step="0.1" placeholder="e.g., 7.5" value="{{ filters.rating }}">
                 </div>
+
+                <!-- Genre Dropdown -->
                 <div class="form-group col-md-2">
                     <label for="genre">Genre</label>
                     <select class="form-control" name="genre">
@@ -142,10 +152,19 @@
                         {% endfor %}
                     </select>
                 </div>
+
+                <!-- Language Dropdown -->
                 <div class="form-group col-md-2">
                     <label for="language">Language</label>
-                    <input type="text" class="form-control" name="language" placeholder="e.g., en" value="{{ filters.language }}">
+                    <select class="form-control" name="language" id="language">
+                        <option value="">Any</option>
+                        {% for lang in languages %}
+                        <option value="{{ lang.code }}" {% if filters.language == lang.code %}selected{% endif %}>{{ lang.name }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
+
+                <!-- Sort By Dropdown -->
                 <div class="form-group col-md-4">
                     <label for="sort_by">Sort By</label>
                     <select class="form-control" name="sort_by">
@@ -185,89 +204,89 @@
         {% endif %}
 
      <!-- Recommended Movies Section -->
-{% if recommendations %}
-<h2 class="section-title">Recommended Movies</h2>
-<div class="horizontal-scroll-container" id="recommendedScroll">
-    <!-- Scroll Buttons -->
-    <button class="scroll-btn left-btn" aria-label="Scroll left in Recommended Movies">&#10094;</button>
-    <div class="movie-section horizontal-scroll">
-        {% for movie in recommendations %}
-        <div class="movie-card">
-            <div class="card">
-                <a href="/movie/{{ movie['id'] }}">
-                    <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
-                </a>
-                <div class="card-body">
-                    <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
-                        <h5 class="card-title">{{ movie['title'] }}</h5>
+    {% if recommendations %}
+    <h2 class="section-title">Recommended Movies</h2>
+    <div class="horizontal-scroll-container" id="recommendedScroll">
+        <!-- Scroll Buttons -->
+        <button class="scroll-btn left-btn" aria-label="Scroll left in Recommended Movies">&#10094;</button>
+        <div class="movie-section horizontal-scroll">
+            {% for movie in recommendations %}
+            <div class="movie-card">
+                <div class="card">
+                    <a href="/movie/{{ movie['id'] }}">
+                        <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
                     </a>
-                    <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    <div class="card-body">
+                        <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
+                            <h5 class="card-title">{{ movie['title'] }}</h5>
+                        </a>
+                        <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <button class="scroll-btn right-btn" aria-label="Scroll right in Recommended Movies">&#10095;</button>
     </div>
-    <button class="scroll-btn right-btn" aria-label="Scroll right in Recommended Movies">&#10095;</button>
-</div>
-{% endif %}
+    {% endif %}
 
-<!-- New Released Movies Section -->
-<h2 class="section-title">New Released Movies</h2>
-<div class="horizontal-scroll-container" id="newReleasedScroll">
-    <!-- Scroll Buttons -->
-    <button class="scroll-btn left-btn" aria-label="Scroll left in New Released Movies">&#10094;</button>
-    <div class="movie-section horizontal-scroll">
-        {% for movie in new_released_movies %}
-        <div class="movie-card">
-            <div class="card">
-                <a href="/movie/{{ movie['id'] }}">
-                    <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
-                </a>
-                <div class="card-body">
-                    <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
-                        <h5 class="card-title">{{ movie['title'] }}</h5>
+    <!-- New Released Movies Section -->
+    <h2 class="section-title">New Released Movies</h2>
+    <div class="horizontal-scroll-container" id="newReleasedScroll">
+        <!-- Scroll Buttons -->
+        <button class="scroll-btn left-btn" aria-label="Scroll left in New Released Movies">&#10094;</button>
+        <div class="movie-section horizontal-scroll">
+            {% for movie in new_released_movies %}
+            <div class="movie-card">
+                <div class="card">
+                    <a href="/movie/{{ movie['id'] }}">
+                        <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
                     </a>
-                    <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    <div class="card-body">
+                        <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
+                            <h5 class="card-title">{{ movie['title'] }}</h5>
+                        </a>
+                        <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <button class="scroll-btn right-btn" aria-label="Scroll right in New Released Movies">&#10095;</button>
     </div>
-    <button class="scroll-btn right-btn" aria-label="Scroll right in New Released Movies">&#10095;</button>
-</div>
-<!-- See More Button -->
-<div class="text-right pr-4 mb-4">
-    <a href="/new-released" class="btn btn-outline-primary see-more-btn" aria-label="See more new released movies">See More</a>
-</div>
+    <!-- See More Button -->
+    <div class="text-right pr-4 mb-4">
+        <a href="/new-released" class="btn btn-outline-primary see-more-btn" aria-label="See more new released movies">See More</a>
+    </div>
 
-<!-- Most Watched (Top Rated) Movies Section -->
-<h2 class="section-title">Top Rated Movies</h2>
-<div class="horizontal-scroll-container" id="mostWatchedScroll">
-    <!-- Scroll Buttons -->
-    <button class="scroll-btn left-btn" aria-label="Scroll left in Most Watched Movies">&#10094;</button>
-    <div class="movie-section horizontal-scroll">
-        {% for movie in most_watched_movies %}
-        <div class="movie-card">
-            <div class="card">
-                <a href="/movie/{{ movie['id'] }}">
-                    <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
-                </a>
-                <div class="card-body">
-                    <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
-                        <h5 class="card-title">{{ movie['title'] }}</h5>
+    <!-- Top Rated Movies Section -->
+    <h2 class="section-title">Top Rated Movies</h2>
+    <div class="horizontal-scroll-container" id="mostWatchedScroll">
+        <!-- Scroll Buttons -->
+        <button class="scroll-btn left-btn" aria-label="Scroll left in Top Rated Movies">&#10094;</button>
+        <div class="movie-section horizontal-scroll">
+            {% for movie in most_watched_movies %}
+            <div class="movie-card">
+                <div class="card">
+                    <a href="/movie/{{ movie['id'] }}">
+                        <img src="{{ movie['poster'] }}" alt="{{ movie['title'] }}" class="card-img-top" loading="lazy">
                     </a>
-                    <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    <div class="card-body">
+                        <a href="/movie/{{ movie['id'] }}" class="text-decoration-none">
+                            <h5 class="card-title">{{ movie['title'] }}</h5>
+                        </a>
+                        <p class="card-text">Rating: {{ movie['rating'] }}</p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        <button class="scroll-btn right-btn" aria-label="Scroll right in Top Rated Movies">&#10095;</button>
     </div>
-    <button class="scroll-btn right-btn" aria-label="Scroll right in Most Watched Movies">&#10095;</button>
-</div>
-<!-- Updated See More Button for Top Rated Movies -->
-<div class="text-right pr-4 mb-4">
-    <a href="/top-rated" class="btn btn-outline-primary see-more-btn" aria-label="See more top-rated movies">See More</a>
-</div>
+    <!-- See More Button for Top Rated Movies -->
+    <div class="text-right pr-4 mb-4">
+        <a href="/top-rated" class="btn btn-outline-primary see-more-btn" aria-label="See more top-rated movies">See More</a>
+    </div>
 
 
     <!-- Footer -->
@@ -309,11 +328,7 @@
                 },
                 minLength: 1, // Show suggestions after typing just one character
                 select: function(event, ui) {
-                    if (ui.item.type === 'movie') {
-                        window.location.href = '/movie/' + ui.item.id;
-                    } else if (ui.item.type === 'actor') {
-                        window.location.href = '/actor/' + ui.item.id;
-                    }
+                    window.location.href = '/movie/' + ui.item.id;
                 },
                 open: function() {
                     $(".ui-autocomplete").css({
@@ -327,7 +342,6 @@
             });
         });
     </script>
-    
    
    <!-- Horizontal Scroll Script for Most Watched and New Released Movies -->
    <script>
